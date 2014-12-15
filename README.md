@@ -16,8 +16,7 @@ TODO:
 
 *Add HTTPd interface with libmongoose
 
-*Add Code highlights...
+*Add Datatables,Code highlights...
 
-*http://en.wikipedia.org/wiki/Chomsky_hierarchy
 
 
