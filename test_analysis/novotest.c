@@ -20,7 +20,7 @@ int parse_ion(char** p, char** lex);
 
 int main() 
 {
-	char *p = ReadLines("test.php"); //evidente que o analisador funciona com código em linguagem C, Perl, PHP...  em Common lisp não, pois sintaxe é bem diferente.
+	char *p = ReadLines("/home/user/test.php"); //evidente que o analisador funciona com código em linguagem C, Perl, PHP...  em Common lisp não, pois sintaxe é bem diferente.
 	char *last = p;
  	int test=0,result=0,line_number=1;
 
