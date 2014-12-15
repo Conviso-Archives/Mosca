@@ -10,6 +10,7 @@ int WriteFile(char *file,char *str)
 
 	if ( arq == NULL ) 
 	{
+		fclose(arq);
 		DEBUG("error in WriteFile() %s",file); 
 		exit(1);
 	}
@@ -37,6 +38,7 @@ char *ReadLines(char * NameFile)
 // todo think implement fcntl() ,toctou mitigation...
 	if( arq == NULL )
 	{
+		fclose(arq);
 		DEBUG("error in to open() file"); 	 
 		exit(1);
 	}
@@ -80,6 +82,7 @@ char *Search_for(char * NameFile,char *regex)
 // todo think implement fcntl() ,toctou mitigation...
 	if( arq == NULL )
 	{
+		fclose(arq);
 		DEBUG("error in to open() file"); 	 
 		exit(1);
 	}
@@ -230,6 +233,7 @@ void mosca_start (const char * dir_name, char * extension, char * config)
 
 	if (! d) 
 	{
+		closedir(d);
 		DEBUG ("Cannot open directory '%s': %s\n", dir_name, strerror (errno));
  		exit (EXIT_FAILURE);
 	}

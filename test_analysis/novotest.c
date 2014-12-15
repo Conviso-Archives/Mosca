@@ -66,6 +66,7 @@ char *ReadLines(char * NameFile)
 
 	if( arq == NULL )
 	{
+		fclose(arq);
 		puts("error at fopen()");
 		exit(1);
 	}
