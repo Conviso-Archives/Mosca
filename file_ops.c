@@ -33,7 +33,7 @@ char *ReadLines(char * NameFile)
 {
 	FILE * arq=NULL;
 
-	arq = fopen(NameFile, "rx");
+	arq = fopen(NameFile, "r");
 
 // todo think implement fcntl() ,toctou mitigation...
 	if( arq == NULL )
@@ -77,7 +77,7 @@ char *Search_for(char * NameFile,char *regex)
 	FILE * arq;
 	int match=0,count=1;
 
-	arq = fopen(NameFile, "rx");
+	arq = fopen(NameFile, "r");
 //DEBUG("regex %s  name file %s \n",regex,NameFile);
 // todo think implement fcntl() ,toctou mitigation...
 	if( arq == NULL )
@@ -268,7 +268,7 @@ void mosca_start (const char * dir_name, char * extension, char * config)
             
 	            if (strcmp (d_name, "..") != 0 && strcmp (d_name, ".") != 0) 
 		    {
-	  		int path_length;
+	  		int path_length=0;
 			char path[PATH_MAX];
  
 			path_length = snprintf (path, PATH_MAX, "%s/%s", dir_name, d_name);
