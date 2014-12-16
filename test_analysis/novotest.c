@@ -17,6 +17,9 @@ enum {
 
 char *ReadLines(char * NameFile);
 int parse_ion(char** p, char** lex);
+static void *xmalloc_fatal(size_t size); 
+void *xcalloc (size_t mem, size_t size); 
+void *xrealloc (void *ptr, size_t size); 
 
 int main() 
 {
@@ -66,17 +69,18 @@ char *ReadLines(char * NameFile)
 
 	if( arq == NULL )
 	{
-		fclose(arq);
-		puts("error at fopen()");
-		exit(1);
+		 if (0 == access(NameFile, 0))
+		 	fclose(arq);	
+		 puts("error at fopen()");
+		 exit(1);
 	}
 
-	char *lineBuffer=calloc(1,1); 
+	char *lineBuffer=xcalloc(1,1); 
 	char line[2048];
 
 	while( fgets(line,sizeof line,arq) )  
 	{
-		lineBuffer=realloc(lineBuffer,strlen(lineBuffer)+strlen(line));
+		lineBuffer=xrealloc(lineBuffer,strlen(lineBuffer)+strlen(line));
 		strncat(lineBuffer,line,2047);
 	}
 
@@ -249,4 +253,35 @@ yy28:
 	}
 
     }
+}
+
+static void *xmalloc_fatal(size_t size) 
+{
+	if ( size == 0 ) 
+		return NULL;
+
+	puts("\n Memory FAILURE...\n");
+
+	exit(1);
+}
+
+
+void *xcalloc (size_t mem, size_t size) 
+{
+	void *ptr = calloc (mem, size);
+
+	if (ptr == NULL) 
+		return xmalloc_fatal(mem*size);
+
+	return ptr;
+}
+
+void *xrealloc (void *ptr, size_t size) 
+{
+	void *p = realloc (ptr, size);
+
+	if (p == NULL) 
+		return xmalloc_fatal(size);
+
+	return p;
 }

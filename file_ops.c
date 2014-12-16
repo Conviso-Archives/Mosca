@@ -10,7 +10,8 @@ int WriteFile(char *file,char *str)
 
 	if ( arq == NULL ) 
 	{
-		fclose(arq);
+		if (0 == access(file, 0))
+		 	fclose(arq);	
 		DEBUG("error in WriteFile() %s",file); 
 		exit(1);
 	}
@@ -38,7 +39,8 @@ char *ReadLines(char * NameFile)
 // todo think implement fcntl() ,toctou mitigation...
 	if( arq == NULL )
 	{
-		fclose(arq);
+		if (0 == access(NameFile, 0))
+		 	fclose(arq);	
 		DEBUG("error in to open() file"); 	 
 		exit(1);
 	}
@@ -82,7 +84,8 @@ char *Search_for(char * NameFile,char *regex)
 // todo think implement fcntl() ,toctou mitigation...
 	if( arq == NULL )
 	{
-		fclose(arq);
+		if (0 == access(NameFile, 0))
+		 	fclose(arq);	
 		DEBUG("error in to open() file"); 	 
 		exit(1);
 	}
@@ -231,9 +234,10 @@ void mosca_start (const char * dir_name, char * extension, char * config)
 
  	d = opendir (dir_name);
 
-	if (! d) 
+	if (d == NULL) 
 	{
-		closedir(d);
+		 if (0 == access(dir_name, 0))
+		 	closedir(d);	
 		DEBUG ("Cannot open directory '%s': %s\n", dir_name, strerror (errno));
  		exit (EXIT_FAILURE);
 	}
@@ -269,12 +273,12 @@ void mosca_start (const char * dir_name, char * extension, char * config)
 	            if (strcmp (d_name, "..") != 0 && strcmp (d_name, ".") != 0) 
 		    {
 	  		int path_length=0;
-			char path[PATH_MAX];
+			char path[1024];
  
-			path_length = snprintf (path, PATH_MAX, "%s/%s", dir_name, d_name);
+			path_length = snprintf (path, 1023, "%s/%s", dir_name, d_name);
 
 
-     	                if (path_length >= PATH_MAX) 
+     	                if (path_length >= 1023) 
 			{
                		     DEBUG("Path length has got too long.\n");
                		     exit(0);
