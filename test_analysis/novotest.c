@@ -65,7 +65,7 @@ char *ReadLines(char * NameFile)
 {
 	FILE * arq=NULL;
 
-	arq = fopen(NameFile, "rx");
+	arq = fopen(NameFile, "r");
 
 	if( arq == NULL )
 	{
