@@ -5,28 +5,28 @@
  ::Description::( File Manipulation. ):: 
  ::Relevance::( Low ):: 
  ::Reference::( https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 ):: 
- ::Match::( rmdir|open|unlink|mkdir ):: 
+ ::Match::# rmdir|open|unlink|mkdir #:: 
 
  ::Title::( Possible Command injection ):: 	
  ::Description::( Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application. ):: 
  ::Relevance::( High ):: 
  ::Reference::( https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 ):: 
- ::Match::( popen|system|execl|execve|execle ):: 
+ ::Match::# popen|system|execl|execve|execle #:: 
 
  ::Title::( Possible Uncontrolled Format string with printf() function )::	
  ::Description::( when you use printf() function need use format string arguments )::
  ::Relevance::( High ):: 
  ::Reference::( http://en.wikipedia.org/wiki/Uncontrolled_format_string )::
- ::Match::( printf\([a-zA-Z].* )::
+ ::Match::# printf\([a-zA-Z].* #::
 
  ::Title::( Possible Uncontrolled Format string with fprintf() function )::	
  ::Description::( when you use printf() function need use format string arguments )::
  ::Relevance::( High ):: 
  ::Reference::( http://en.wikipedia.org/wiki/Uncontrolled_format_string )::
- ::Match::( fprintf\s*\(stdout,[a-zA-Z0-9]*\$ ) )::
+ ::Match::# fprintf\s*\(stdout,[a-zA-Z0-9]*\$ ) #::
 
  ::Title::( Possible Stack Overflow strcpy() function )::	
  ::Description::( when you use strcpy() function you need some attention )::
  ::Relevance::( High ):: 
  ::Reference::( https://www.owasp.org/index.php/Testing_for_Stack_Overflow )::
- ::Match::( strcpy\( )::
+ ::Match::# strcpy\( #::
