@@ -1,0 +1,32 @@
+::::::::::::::::::::::::::::::::::::::::::::::::::::EGG:COMMON:PHP:FAILURES
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+ ::Title::( File Manipulation ):: 	
+ ::Description::( File Manipulation. this is notification ):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( search race conditions, file manipulation etc... ):: 
+ ::Match::# fopen|fclose|readline|fwrite|mkdir|unlink #:: 
+
+ ::Title::( Possible Command injection ):: 	
+ ::Description::( Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application. ):: 
+ ::Relevance::( High ):: 
+ ::Reference::( https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 ):: 
+ ::Match::# eval|system|execve|`.*`|exec|popen|proc_open|proc_get_status|proc_nice|passthru #:: 
+
+ ::Title::( Possible XSS )::	
+ ::Description::( notification at possible XSS )::
+ ::Relevance::( High ):: 
+ ::Reference::( http://guides.rubyonrails.org/security.html#cross-site-scripting-xss )::
+ ::Match::# (echo|print)\s*.*\$(_GET|_POST|_REQUEST|_SESSION|_COOKIE| HTTP).* #::
+
+ ::Title::( SHow inputs like get/post/cookies etc... )::	
+ ::Description::( notification )::
+ ::Relevance::( Low ):: 
+ ::Reference::( search SQLi etc... )::
+ ::Match::# \$[_GET|_POST|_REQUEST|_SESSION|_COOKIE|_FILES|_SERVER] #::
+
+ ::Title::( Possible SQL injection )::	
+ ::Description::( notification possible SQL injection )::
+ ::Relevance::( High ):: 
+ ::Reference::( https://www.owasp.org/index.php/Testing_for_Stack_Overflow )::
+ ::Match::# mysql_query\s*\(.*\$.*\)|pg_query\s*\(.*\$.*\)|pg_send_query\s*\(.*\$.*\)|pg_execute\s*\(.*\$.*\)|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT) #::
