@@ -27,11 +27,11 @@ char  *ClearStr(char* charBuffer,int num)
 // DFA to parse egg module
 int parse_eggs(char** p, char** lex)
 {
-    char* marker=NULL;
+      char* marker;
 
-    for (;;) 
-    {
-      *lex = *p;
+    for (;;) {
+    *lex = *p;
+    
 	{
 		char yych;
 		unsigned int yyaccept = 0;
@@ -50,10 +50,14 @@ yy2:
 		default:	goto yy3;
 		}
 yy3:
+
 		{ continue; }
+
 yy4:
 		++*p;
+
 		{ return END; }
+
 yy6:
 		yych = (char)*++*p;
 		goto yy3;
@@ -141,13 +145,13 @@ yy17:
 yy18:
 		yych = (char)*++*p;
 		switch (yych) {
-		case '(':	goto yy19;
+		case '#':	goto yy19;
 		default:	goto yy8;
 		}
 yy19:
 		yych = (char)*++*p;
 		switch (yych) {
-		case ')':
+		case '#':
 		case ':':
 		case '>':	goto yy8;
 		default:	goto yy20;
@@ -157,7 +161,7 @@ yy20:
 		yych = (char)**p;
 		switch (yych) {
 		case ' ':	goto yy22;
-		case ')':
+		case '#':
 		case ':':	goto yy25;
 		case '>':	goto yy8;
 		default:	goto yy20;
@@ -168,13 +172,15 @@ yy22:
 		yych = (char)**p;
 		switch (yych) {
 		case ' ':	goto yy22;
-		case ')':
+		case '#':
 		case ':':	goto yy25;
 		case '>':	goto yy24;
 		default:	goto yy20;
 		}
 yy24:
+
 		{ return MATCH; }
+
 yy25:
 		yych = (char)*++*p;
 		goto yy24;
@@ -285,7 +291,9 @@ yy42:
 		}
 yy43:
 		++*p;
+
 		{ return REFERENCE; }
+
 yy45:
 		yych = (char)*++*p;
 		switch (yych) {
@@ -369,7 +377,9 @@ yy56:
 		default:	goto yy54;
 		}
 yy58:
+
 		{ return RELEVANCE; }
+
 yy59:
 		yych = (char)*++*p;
 		goto yy58;
@@ -473,7 +483,9 @@ yy74:
 		}
 yy75:
 		++*p;
+
 		{ return DESCRIPTION; }
+
 yy77:
 		yych = (char)*++*p;
 		switch (yych) {
@@ -532,8 +544,11 @@ yy85:
 		}
 yy86:
 		++*p;
+
 		{ return TITLE; }
+
 	}
+
 
     }
 }
