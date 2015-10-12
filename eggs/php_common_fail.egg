@@ -11,13 +11,13 @@
  ::Description::( Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application. ):: 
  ::Relevance::( High ):: 
  ::Reference::( https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 ):: 
- ::Match::# eval|system|execve|`.*`|exec|popen|proc_open|proc_get_status|proc_nice|passthru #:: 
+ ::Match::# eval|system|execve|`.*`|exec|popen|proc_open|proc_get_status|proc_nice|passthru|create_function|assert #:: 
 
  ::Title::( Possible XSS )::	
  ::Description::( notification at possible XSS )::
  ::Relevance::( High ):: 
  ::Reference::( http://guides.rubyonrails.org/security.html#cross-site-scripting-xss )::
- ::Match::# (echo|print)\s*.*\$(_GET|_POST|_REQUEST|_SESSION|_COOKIE| HTTP).* #::
+ ::Match::# (echo|print|print_r|exit|die|printf|vprintf).*?\s*\$_((POST|GET)\[.*?\]|SERVER\[.?(REQUEST_URI|QUERY_STRING)) #::
 
  ::Title::( SHow inputs like get/post/cookies etc... )::	
  ::Description::( notification )::
@@ -29,4 +29,23 @@
  ::Description::( notification possible SQL injection )::
  ::Relevance::( High ):: 
  ::Reference::( https://www.owasp.org/index.php/Testing_for_Stack_Overflow )::
- ::Match::# mysql_query\s*\(.*\$.*\)|pg_query\s*\(.*\$.*\)|pg_send_query\s*\(.*\$.*\)|pg_execute\s*\(.*\$.*\)|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT) #::
+ ::Match::# mysql_query\s*\(.*\$.*\)|pg_query\s*\(.*\$.*\)|pg_send_query\s*\(.*\$.*\)|pg_execute\s*\(.*\$.*\)|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT)|mysql_query\s?\(|mysqli_query\s?\(|pg_execute\s?\(|pg_insert\s?\(|pg_query\s?\(|pg_select\s?\(|pg_update\s?\(|sqlite_query\s?\(|msql_query\s?\(|mssql_query\s?\(|odbc_exec\s?\(|fbsql_query\s?\(|sybase_query\s?\(|ibase_query\s?\(|dbx_query\s?\(|ingres_query\s?\(|ifx_query\s?\(|oci_parse\s?\(|sqlsrv_query\s?\(|maxdb_query\s?\(|db2_exec\s?\( #::
+
+ ::Title::( Object injection )::	
+ ::Description::( Do not use unserialize function with user-supplied input. Unserialization can result in code being loaded and executed due to object instantiation and autoloading. )::
+ ::Relevance::( High ):: 
+ ::Reference::( https://www.owasp.org/index.php/PHP_Object_Injection )::
+ ::Match::# unserialize\s?\( #::
+ 
+ ::Title::( Header injection )::	
+ ::Description::( HTTP_HOST is remotely set via Host Header and poor usage often leads to injection or redirection attacks. )::
+ ::Relevance::( High ):: 
+ ::Reference::( https://en.wikipedia.org/wiki/HTTP_header_injection )::
+ ::Match::# _SERVER\[\s*('|")HTTP_HOST('|")\s*\]|header\s?(\(|'|\"|$).*\$.* #::
+ 
+ ::Title::( Logic fail )::	
+ ::Description::(Possible logic bug that could lead to security bugs. Assigning a static string to a variable in an if condition is not normal and is likely a mistake. )::
+ ::Relevance::( High ):: 
+ ::Reference::( https://en.wikipedia.org/wiki/Logic_error)::
+ ::Match::# if\s?\(\s?\$.*\s?(?<!\!)=\s?('|").*('|")\s?\) #::
+ 
