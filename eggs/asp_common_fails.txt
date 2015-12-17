@@ -1,0 +1,38 @@
+::::::::::::::::::::::::::::::::::::::::::::::::::::EGG:COMMON:ASP:FAILURES
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+ ::Title::( File Manipulation ):: 	
+ ::Description::( File Manipulation. this is notification ):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( search race conditions, file manipulation etc... ):: 
+ ::Match::# OpenTextFile|WriteLine|GetFileName|CreateTextFile #:: 
+
+ ::Title::( Possible Command injection ):: 	
+ ::Description::( Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application. ):: 
+ ::Relevance::( High ):: 
+ ::Reference::( https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 ):: 
+ ::Match::# WScript\.Shell|\.Exec|\.run " #:: 
+
+ ::Title::( Possible XSS )::	
+ ::Description::( notification at possible XSS )::
+ ::Relevance::( High ):: 
+ ::Reference::( http://guides.rubyonrails.org/security.html#cross-site-scripting-xss )::
+ ::Match::# (response\.write ) #::
+
+ ::Title::( SHow inputs like get/post/cookies etc... )::	
+ ::Description::( notification input here )::
+ ::Relevance::( Low ):: 
+ ::Reference::( search SQLi,XSS etc... )::
+ ::Match::# request\.querystring|request\.form|Response\.Cookies|Request\.Cookies|Session #::
+
+ ::Title::( Possible SQL injection )::	
+ ::Description::( notification possible SQL injection )::
+ ::Relevance::( High ):: 
+ ::Reference::( https://www.owasp.org/index.php/Testing_for_Stack_Overflow )::
+ ::Match::# ADODB\.recordset|ADODB\.Connection|ADODB\.command|WHERE|FROM|SELECT|UPDATE|UNION|DELETE|INSERT #::
+
+ ::Title::( Logic fail )::	
+ ::Description::(Possible logic bug that could lead to security bugs. Assigning a static string to a variable in an if condition is not normal and is likely a mistake. )::
+ ::Relevance::( High ):: 
+ ::Reference::( https://en.wikipedia.org/wiki/Logic_error)::
+ ::Match::# if\s?\(\s?\$.*\s?(?<!\!)=\s?('|").*('|")\s?\) #::
