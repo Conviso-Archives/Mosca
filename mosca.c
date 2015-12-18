@@ -136,6 +136,12 @@ int main(int argc, char ** argv)
     				}
 				break;
   		}
+  		
+  		if(pack[3]==NULL)
+		{
+			DEBUG("error at log file");
+			exit(0);
+		}
 
 		memset(log_file,0,255);	
 		strncpy(log_file,pack[3],255);
