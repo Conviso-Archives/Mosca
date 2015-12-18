@@ -35,5 +35,5 @@
  ::Description::( Every time you use a pattern like the ones above think twice to see if you’re not exposing too much.  )::
  ::Relevance::( High ):: 
  ::Reference::( http://guides.rubyonrails.org/security.html )::
- ::Match::# params\[(.*)\]\.constantize #::
+ ::Match::# params(.*)\.constantize #::
  
