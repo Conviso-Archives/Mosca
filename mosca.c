@@ -29,7 +29,7 @@ void init_banner_mosca()
  LAST
 "+-----------------------------------------------------------------+\n"
 "Options: \n"
-"--egg = Load module to make analysis '--egg egg/php_top_fails.php' \n"
+"--egg = Load module to make analysis '--egg eggs/php_top_fails.php' use full path \n"
 "--path = Path to open and make recursive search \n"
 "--ext = File extension to search example; get only C files '\\.c$' \n"
 "--log = File to save results \n"
