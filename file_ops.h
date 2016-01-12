@@ -7,6 +7,7 @@
 #include <errno.h>
 #include <dirent.h>
 #include <limits.h>
+#include <errno.h>
 #include "mem_ops.h"
 
 // colors macros 
@@ -18,7 +19,6 @@
 
 
 char log_file[256];
-int WriteFile(char *file,char *str);
 char *ReadLines(char * NameFile);
 char *Search_for(char * NameFile,char *regex);
 void fly_to_analyse(char *path, char *config);
