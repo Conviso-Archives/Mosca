@@ -12,8 +12,20 @@
  ::Description::( Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application. ):: 
  ::Relevance::( High ):: 
  ::Reference::( https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 ):: 
- ::Match::# eval\s?\( #:: 
+ ::Match::# eval\s?\(|setTimeout|setInterval #:: 
  
+  ::Title::( Possible XSS ):: 	
+ ::Description::( templates with ejs extension  with possible xss ):: 
+ ::Relevance::( High ):: 
+ ::Reference::( https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29 ):: 
+ ::Match::# <%\- #:: 
+ 
+  ::Title::( Possible SQL injection )::	
+ ::Description::( notification possible SQL injection )::
+ ::Relevance::( High ):: 
+ ::Reference::( https://www.owasp.org/index.php/Testing_for_Stack_Overflow )::
+ ::Match::# query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults #::
+
  ::Title::( Privacy Violation ):: 	
  ::Description::( Use of getCurrentPosition to get user location. May be a privacy concern. ):: 
  ::Relevance::( Low ):: 

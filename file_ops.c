@@ -1,108 +1,86 @@
 #include "file_ops.h"
 #include "mem_ops.h"
 #include "string_ops.h"
+#include <alloca.h>
 
 
 //read lines of file
 char *ReadLines(char * NameFile)
 {
-	FILE * arq=NULL;
+	FILE * fh;
+	char *buffer=NULL;
 
-	arq = fopen(NameFile, "rx");
+	fh = fopen(NameFile, "rb");
 
-// todo think implement fcntl() ,toctou mitigation...
-	if( arq == NULL )
+	if( fh == NULL )
 	{
-//		fclose(arq);
-		DEBUG("error in to open() file"); 	 
+
+		DEBUG("error in to open() file");
 		perror("Error ");
-		exit(-1);
+		exit(-1); 	 
+		
 	}
 
-	char *lineBuffer=xcalloc(1,1); 
-	char line[4096];
-	memset(line,0,4095);
-
-	while( fgets(line,sizeof line-1,arq) )  
+	if(fseek(fh, 0L, SEEK_END)==0)
 	{
-		lineBuffer=xrealloc(lineBuffer,strlen(lineBuffer)+strlen(line));
-		strncat(lineBuffer,line,strlen(line)-1);
+    		long s = ftell(fh);
+    		rewind(fh);
+    		buffer = xmalloc(s);
+//		memset(buffer,0,s-1);	
+
+    		if ( buffer != NULL )
+    		{
+      			if(!fread(buffer, s, 1, fh))
+				DEBUG("error \n");
+    //  		fwrite(buffer, s, 1, stdout);
+    		}
 	}
 
  
-	if( fclose(arq) == EOF )
+	if( fclose(fh) == EOF )
 	{
 		DEBUG("Error in close() file %s",NameFile);
-		perror("Error ");
-		exit(-1);
+		exit(1);
 	}
 
-	arq=NULL;
+	fh=NULL;
 
-	lineBuffer[strlen(lineBuffer)-1]='\0';
-
-	char *tmp=lineBuffer;
-
-	xfree((void **)&lineBuffer);
-
-	return tmp;
+	
+	return buffer;
 }
+
+
+
 
 //read lines of file
 char *Search_for(char * NameFile,char *regex)
 {
-	FILE * arq;
-	int match=0,count=1;
+	int match=0;
+	long int count=0;
 
-	arq = fopen(NameFile, "rx");
-//DEBUG("regex %s  name file %s \n",regex,NameFile);
-// todo think implement fcntl() ,toctou mitigation...
-	if( arq == NULL )
+	char *lineBuffer=xcalloc(1,1);
+	char *buffer2=ReadLines(NameFile);
+	char *ptr= strtok(buffer2,"\n");
+	char tmpline[2128];
+
+	Dead_Space(ptr);
+
+	while(ptr!=NULL)
 	{
-		
-//		fclose(arq);
-		DEBUG("error in to open() file"); 	 
-		perror("Error ");
-		exit(-1);
-	}
-
-	char *lineBuffer=xcalloc(1,1); 
-	char line[2048],line2[2048],tmpline[2128];
-
-	while( fgets(line,2048,arq) )  
-	{
-// don't need match tab  \t
-		memset(line2,0,2048);
-		strcat(line2," ");
-		strncat(line2,line,2047-sizeof(char));
-		Dead_Space(line2);
-//DEBUG("%s",line2);
-		match=match_test(line2,regex);
+		match=match_test(ptr,regex);
 
 		if(match)
 		{
-			lineBuffer=xrealloc(lineBuffer,strlen(lineBuffer)+2128);
-			snprintf(tmpline,2127," Line: %d -  %s",count,line);
-			strncat(lineBuffer,tmpline,2127);
+			lineBuffer=xrealloc(lineBuffer,strlen(lineBuffer)+2256);
+			snprintf(tmpline,2127," Line: %ld -  %s\n",count,ptr);
+			strncat(lineBuffer,tmpline,2255);
 		}
-
+		
+		ptr = strtok (NULL, "\n");
 		count++;
 	}
 
- 
-	if( fclose(arq) == EOF )
-	{
-		DEBUG("Error in close() file %s",NameFile);
-		perror("Error ");
-		exit(-1);
-	}
-
-	arq=NULL;
-
-	lineBuffer[strlen(lineBuffer)-1]='\0';
-
-//	if(lineBuffer!=NULL)
-//		free(lineBuffer);
+ 	xfree((void **)&ptr);
 
 	return lineBuffer;
 }
@@ -113,7 +91,7 @@ void fly_to_analyse(char *path, char *config)
 	char *p = ReadLines(config);
 	char *last=p;
 //	char *result2=NULL;
-	char title[128],description[512],reference[512],match[128],relevance[512];	
+	char title[128],description[512],reference[512],match[1024],relevance[512];	
 	int result=0,sz=0;
 
 
@@ -159,14 +137,15 @@ TODO* fix bug when test first rule of egg file
 */
 			case MATCH:
 					sz = p - last;
-					memset(match,0,127);
-					snprintf(match,127,"%.*s", sz, last);
+					memset(match,0,1023);
+					snprintf(match,1023,"%.*s", sz, last);
 					strcpy(match,ClearStr(match,10));
 
 
 					char *result2=Search_for(path,match);
 
 // TODO* need validate before print out
+					if(result2!=NULL)
 					if(strlen(result2)>8)
 					{
 						fprintf(stdout,"\n-------------------\n %sTitle:%s  %s  \n %sDescription:%s %s \n %sRelevance:%s %s \n %sReference:%s %s \n %sMatch:%s %s  \n%s%s%s\n",YELLOW,LAST,title,YELLOW,LAST,description,YELLOW,LAST,relevance,YELLOW,LAST,reference,YELLOW,LAST,match,CYAN,result2,LAST);
@@ -205,8 +184,7 @@ TODO* fix bug when test first rule of egg file
 				result=1;	
 				break;
     		}
-
-
+			
 }
 
 

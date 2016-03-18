@@ -10,13 +10,13 @@
  ::Title::( Possible Command injection ):: 	
  ::Description::( Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application. ):: 
  ::Relevance::( High ):: 
- ::Reference::( https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 ):: 
+ ::Reference::( https://www.owasp.org/index.php/Command_Injection ):: 
  ::Match::# WScript\.Shell|\.Exec|\.run " #:: 
 
  ::Title::( Possible XSS )::	
  ::Description::( notification at possible XSS )::
  ::Relevance::( High ):: 
- ::Reference::( http://guides.rubyonrails.org/security.html#cross-site-scripting-xss )::
+ ::Reference::( https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29 )::
  ::Match::# (response\.write ) #::
 
  ::Title::( SHow inputs like get/post/cookies etc... )::	
@@ -28,7 +28,7 @@
  ::Title::( Possible SQL injection )::	
  ::Description::( notification possible SQL injection )::
  ::Relevance::( High ):: 
- ::Reference::( https://www.owasp.org/index.php/Testing_for_Stack_Overflow )::
+ ::Reference::( https://www.owasp.org/index.php/SQL_Injection )::
  ::Match::# ADODB\.recordset|ADODB\.Connection|ADODB\.command|WHERE|FROM|SELECT|UPDATE|UNION|DELETE|INSERT #::
 
  ::Title::( Logic fail )::	
@@ -36,3 +36,4 @@
  ::Relevance::( High ):: 
  ::Reference::( https://en.wikipedia.org/wiki/Logic_error)::
  ::Match::# if\s?\(\s?\$.*\s?(?<!\!)=\s?('|").*('|")\s?\) #::
+ 

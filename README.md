@@ -1,22 +1,19 @@
-Mosca
+##Mosca
 =====
 
-Just another Simple static analysis tool, V0.001  Beta
+ Static analysis tool to find bugs like a grep unix command, Version 0.03  
+*egg modules is a config to find to vulnerabilities
 
-Simple example how  to automate analysis of some codes...
+*you can use at C, PHP, javascript, ruby etc
+
+*Save results at XML file
+
+*create your own modules etc...
+
+![Alt text](https://raw.githubusercontent.com/CoolerVoid/Mosca/master/doc/images/codeview.png)
 
 ![Alt text](https://raw.githubusercontent.com/CoolerVoid/Mosca/master/doc/Mosca.jpg)
 
 
-TODO:
-------
-*add AST coverage and analysis walking tree...
-
-*improve DFA of eggs modules...
-
-*Add HTTPd interface with libmongoose
-
-*Add Datatables,Code highlights...
-
-
+https://sourceforge.net/projects/mosca/
 

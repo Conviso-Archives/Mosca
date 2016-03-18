@@ -5,25 +5,25 @@
  ::Description::( File Manipulation. this is notification ):: 
  ::Relevance::( Low ):: 
  ::Reference::( search race conditions, file manipulation etc... ):: 
- ::Match::# newOutputStream | createFile | createTempFile | \.write  | InputStreamReader #:: 
+ ::Match::# newOutputStream|createFile|createTempFile|\.write|InputStreamReader #:: 
 
  ::Title::( Possible Command injection ):: 	
  ::Description::( Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application. ):: 
  ::Relevance::( High ):: 
  ::Reference::( https://www.owasp.org/index.php/Command_injection_in_Java ):: 
- ::Match::# \.system | \.exec #:: 
+ ::Match::# \.system|\.exec #:: 
 
  ::Title::( Show user inputs)::	
  ::Description::( notification )::
  ::Relevance::( Low ):: 
  ::Reference::( investigate inputs )::
- ::Match::# getParameter | getParameterNames | getParameterValues | getParameterMap | getQueryString | getHeader | getHeaders | getHeaderNames | getRequestURI |getRequestURL | getCookies | getRequestedSessionId | getInputStream | getReader | getMethod | getProtocol | getServerName | getRemoteUser | getUserPrincipal #::
+ ::Match::# getParameter|getParameterNames|getParameterValues|getParameterMap|getQueryString|getHeader|getHeaders|getHeaderNames|getRequestURI|getRequestURL|getCookies|getRequestedSessionId|getInputStream|getReader|getMethod|getProtocol|getServerName|getRemoteUser|getUserPrincipal #::
 
  ::Title::( SQL query)::	
  ::Description::( notification SQL query )::
  ::Relevance::( Low ):: 
  ::Reference::( https://www.owasp.org/index.php/Preventing_SQL_Injection_in_Java )::
- ::Match::# WHERE | INSERT | SELECT | DELETE | UPDATE | ORDER | createStatement | executeQuery #::
+ ::Match::# WHERE|INSERT|SELECT|DELETE|UPDATE|ORDER|createStatement|executeQuery #::
  
  ::Title::( Logic fail )::	
  ::Description::(Possible logic bug that could lead to security bugs. Assigning a static string to a variable in an if condition is not normal and is likely a mistake. )::

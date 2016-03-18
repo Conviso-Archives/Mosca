@@ -1,8 +1,6 @@
 TODO
+*-criar função para procurar X linhas em todos os arquivos se não encontar julgar o sistema vuln HSTS,content type,x-frame options...
 *-fazer interface web usando lib mongoose para HTTPd +datatables + syntax highlight para mostrar linhas que estão vuln...
-*-opção de saída com datatables e syntax highlight
-*-opção de saída com XML
-*-Opção de carregar analisadores externos usando dlopen()
 *-opção de ver raw "TXT" exemplo: 
 ---
 Arquivo: path/blah

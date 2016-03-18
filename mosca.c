@@ -1,7 +1,7 @@
 /*
 Date: 06/12/2014
 Author: Cooler_
-Contact: c00f3r@gmail.com
+Contact: coolerlair@gmail.com
 License: GPL3 read file LICENSE.txt
 
 */
@@ -25,18 +25,18 @@ void init_banner_mosca()
 "       .'(_I_)`.   |  | |__| ___] |___ |  |   coded by Cooler_\n"
 "           \"       \n"
  YELLOW
-"    Static analysis tool  v0.01 Beta\n"
+"    Static analysis tool to find bugs like a grep unix command  v0.04 \n"
  LAST
 "+-----------------------------------------------------------------+\n"
 "Options: \n"
-"--egg = Load module to make analysis '--egg eggs/php_top_fails.php' use full path \n"
-"--path = Path to open and make recursive search \n"
+"--egg = Load module to make analysis '--egg eggs/php_top_fails.php' don't use '../path' \n"
+"--path = Path to open and make recursive search, use full path don't use ../path \n"
 "--ext = File extension to search example; get only C files '\\.c$' \n"
 "--log = File to save results \n"
 YELLOW
 "Example: \n"
 LAST
-"$ ./mosca --egg egg/php_fails.egg --path home/user/blog_php --ext \"\\\\.php$\" --log reports.txt \n"
+"$ ./mosca --egg eggs/php_common_fail.egg --path /home/user/blog_php --ext \"\\\\.php$\" --log reports.txt \n"
  );
  puts(LAST);
 }
@@ -132,17 +132,23 @@ int main(int argc, char ** argv)
      					puts(RED);
      					DEBUG("Option -%c requires an argument.\n", optopt); 
      					puts(LAST);
-     					exit(0);
+     					exit(1);
     				}
 				break;
+
+			default:	
+				init_banner_mosca();
+				DEBUG("Need more arguments.\n");
+				exit(1);
+
   		}
-  		
-  		if(pack[3]==NULL)
+
+		if(pack[3]==NULL)
 		{
 			DEBUG("error at log file");
 			exit(0);
 		}
-
+		
 		memset(log_file,0,255);	
 		strncpy(log_file,pack[3],255);
 
