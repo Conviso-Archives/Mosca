@@ -37,7 +37,7 @@
  ::Reference::( https://www.owasp.org/index.php/PHP_Object_Injection )::
  ::Match::# unserialize\s?\( #::
  
-  ::Title::( Autoload Injection ):: 	
+ ::Title::( Autoload Injection ):: 	
  ::Description::( Autoload can lead to a Local and Remote file injection in PHP5 OOP ):: 
  ::Relevance::( Medium ):: 
  ::Reference::( http://php.net/language.oop5.autoload  ):: 
@@ -54,4 +54,10 @@
  ::Relevance::( High ):: 
  ::Reference::( https://en.wikipedia.org/wiki/Logic_error)::
  ::Match::# if\s?\(\s?\$.*\s?(?<!\!)=\s?('|").*('|")\s?\) #::
+ 
+ ::Title::( wordpress functions need sanitize )::	
+ ::Description::( wordpress functions that need sanitize )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://developer.wordpress.org/reference/)::
+ ::Match::# the_title|get_the_title|the_content #::
  
