@@ -23,7 +23,7 @@
  ::Description::( notification )::
  ::Relevance::( Low ):: 
  ::Reference::( search SQLi etc... )::
- ::Match::#_GET|_POST|_REQUEST|_SESSION|_COOKIE|_FILES|_SERVER #::
+ ::Match::# _GET|_POST|_REQUEST|_SESSION|_COOKIE|_FILES|_SERVER #::
 
  ::Title::( Possible SQL injection )::	
  ::Description::( notification possible SQL injection )::
