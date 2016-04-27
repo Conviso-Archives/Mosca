@@ -7,7 +7,7 @@ UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
 	LDFLAGS= -lpcre 
 else
-	LDFLAGS=-Wl,-z,relro,-z,now -lpcre 
+	LDFLAGS=-Wl,-z,relro -lpcre 
 endif
 
 

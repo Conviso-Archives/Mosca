@@ -25,7 +25,7 @@ void init_banner_mosca()
 "       .'(_I_)`.   |  | |__| ___] |___ |  |   coded by Cooler_\n"
 "           \"       \n"
  YELLOW
-"    Static analysis tool to find bugs like a grep unix command  v0.04 \n"
+"    Static analysis tool to find bugs like a grep unix command  v0.05 \n"
  LAST
 "+-----------------------------------------------------------------+\n"
 "Options: \n"
@@ -146,6 +146,14 @@ int main(int argc, char ** argv)
 		if(pack[3]==NULL)
 		{
 			DEBUG("error at log file");
+			exit(0);
+		}
+
+
+
+		if(pack[2]==NULL)
+		{
+			DEBUG("error at extension file");
 			exit(0);
 		}
 		

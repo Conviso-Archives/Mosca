@@ -4,17 +4,6 @@
 #define array_elements(array) (sizeof(array) / sizeof *(array))
 
 
-void Dead_Space(char *str) 
-{
-	char *p1 = str, *p2 = str;
-
-	while((*p1++ = *p2++))
-	{
-		while(*p2 == '\r' || *p2 == '\t' || *p2 == '	')
-			++p2;
-	}
-
-}
 
 
 char  *ClearStr(char* charBuffer,int num) 

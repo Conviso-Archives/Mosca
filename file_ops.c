@@ -2,13 +2,15 @@
 #include "mem_ops.h"
 #include "string_ops.h"
 #include <alloca.h>
-
+#define MAX_file_len 50000
 
 //read lines of file
 char *ReadLines(char * NameFile)
 {
 	FILE * fh;
-	char *buffer=NULL;
+	static char buffer[MAX_file_len];
+
+	memset(buffer,0,MAX_file_len-1);
 
 	fh = fopen(NameFile, "rb");
 
@@ -25,14 +27,11 @@ char *ReadLines(char * NameFile)
 	{
     		long s = ftell(fh);
     		rewind(fh);
-    		buffer = xmalloc(s);
-//		memset(buffer,0,s-1);	
 
-    		if ( buffer != NULL )
+    		if ( buffer != NULL && s < MAX_file_len )
     		{
       			if(!fread(buffer, s, 1, fh))
 				DEBUG("error \n");
-    //  		fwrite(buffer, s, 1, stdout);
     		}
 	}
 
@@ -45,42 +44,56 @@ char *ReadLines(char * NameFile)
 
 	fh=NULL;
 
+	char *tmp=buffer;
 	
-	return buffer;
+	return tmp;
 }
 
 
 
 
-//read lines of file
+// search matchs in file
 char *Search_for(char * NameFile,char *regex)
 {
+        long int count=0;
 	int match=0;
-	long int count=0;
-
 	char *lineBuffer=xcalloc(1,1);
-	char *buffer2=ReadLines(NameFile);
-	char *ptr= strtok(buffer2,"\n");
 	char tmpline[2128];
 
-	Dead_Space(ptr);
+	FILE * arq;
 
-	while(ptr!=NULL)
+	arq = fopen(NameFile, "r");
+// todo think implement fcntl() ,toctou mitigation...
+	if( arq == NULL )
 	{
-		match=match_test(ptr,regex);
+		DEBUG("error in to open() file"); 	 
+		exit(1);
+	}
+
+	char line[2127];
+
+	while( fgets(line,sizeof line,arq) )  
+	{
+		match=match_test(line,regex);
 
 		if(match)
 		{
 			lineBuffer=xrealloc(lineBuffer,strlen(lineBuffer)+2256);
-			snprintf(tmpline,2127," Line: %ld -  %s\n",count,ptr);
+			snprintf(tmpline,2127," Line: %ld -  %s\n",count,line);
 			strncat(lineBuffer,tmpline,2255);
 		}
 		
-		ptr = strtok (NULL, "\n");
 		count++;
 	}
 
- 	xfree((void **)&ptr);
+ 
+	if( fclose(arq) == EOF )
+	{
+		DEBUG("Error in close() file %s",NameFile);
+		exit(1);
+	}
+
+	arq=NULL;
 
 	return lineBuffer;
 }
@@ -88,22 +101,20 @@ char *Search_for(char * NameFile,char *regex)
 
 void fly_to_analyse(char *path, char *config)
 {
-	char *p = ReadLines(config);
+	char *p=ReadLines(config);
 	char *last=p;
-//	char *result2=NULL;
 	char title[128],description[512],reference[512],match[1024],relevance[512];	
 	int result=0,sz=0;
 
-
-
-	while(!result)
+	
+	while(!result && strlen(last)>16)
+	{
 		switch (parse_eggs(&p, &last)) 
 		{
 			case TITLE:
 					sz = p - last;
 					memset(title,0,127);
 					snprintf(title,127,"%.*s", sz, last);
-// DEBUG("%s\n",title);
 					strcpy(title,ClearStr(title,10));
 				break;
 
@@ -131,10 +142,7 @@ void fly_to_analyse(char *path, char *config)
 					snprintf(relevance,511,"%.*s", sz, last);
 					strcpy(relevance,ClearStr(relevance,14));
 				break;
-/*
-TODO* fix bug when test first rule of egg file
 
-*/
 			case MATCH:
 					sz = p - last;
 					memset(match,0,1023);
@@ -152,7 +160,6 @@ TODO* fix bug when test first rule of egg file
 
 						if(log_file != NULL)
 						{
-// TODO* call one time write()... optimize
 							FILE *arq;
  
 							arq=fopen(log_file,"a"); 
@@ -164,7 +171,7 @@ TODO* fix bug when test first rule of egg file
 								exit(-1);
 							}
 
-							fprintf(arq,"<report_mosca>\n <Path>%s</Path>\n <Module>%s</Module>\n <Title>%s</Title>\n <Description>%s</Description>\n <Reference>%s</Reference>\n <Match>%s</Match>\n <Result>%s</Result>\n</report_mosca>\n\n",path,config,title,description,reference,match,result2); 
+							fprintf(arq,"<report_mosca>\n <Path>%s</Path>\n <Module>%s</Module>\n <Title>%s</Title>\n <Description>%s</Description>\n <Level>%s</Level>\n <Reference>%s</Reference>\n <Match>%s</Match>\n <Result>%s</Result>\n</report_mosca>\n\n",path,config,title,description,relevance,reference,match,result2); 
 
 							if( fclose(arq) == EOF )
 							{
@@ -184,7 +191,12 @@ TODO* fix bug when test first rule of egg file
 				result=1;	
 				break;
     		}
-			
+	
+	
+	}
+	
+	if(strlen(last)>16)
+		xfree((void **)&last);
 }
 
 
