@@ -2,7 +2,7 @@
 #include "mem_ops.h"
 #include "string_ops.h"
 #include <alloca.h>
-#define MAX_file_len 50000
+#define MAX_file_len 100000000
 
 //read lines of file
 char *ReadLines(char * NameFile)
@@ -55,15 +55,15 @@ char *ReadLines(char * NameFile)
 // search matchs in file
 char *Search_for(char * NameFile,char *regex)
 {
-        long int count=0;
-	int match=0;
+        int count=0, match=0;
 	char *lineBuffer=xcalloc(1,1);
 	char tmpline[2128];
+	size_t sumlen=0;
 
 	FILE * arq;
 
 	arq = fopen(NameFile, "r");
-// todo think implement fcntl() ,toctou mitigation...
+
 	if( arq == NULL )
 	{
 		DEBUG("error in to open() file"); 	 
@@ -78,12 +78,13 @@ char *Search_for(char * NameFile,char *regex)
 
 		if(match)
 		{
-			lineBuffer=xrealloc(lineBuffer,strlen(lineBuffer)+2256);
-			snprintf(tmpline,2127," Line: %ld -  %s\n",count,line);
+			sumlen=safe_add(sumlen,2256);
+			lineBuffer=xreallocarray(lineBuffer,sumlen,sizeof(char));
+			snprintf(tmpline,2127," Line: %d -  %s\n",count,line);
 			strncat(lineBuffer,tmpline,2255);
 		}
 		
-		count++;
+		count=safe_add(count,1);
 	}
 
  
@@ -154,7 +155,7 @@ void fly_to_analyse(char *path, char *config)
 
 // TODO* need validate before print out
 					if(result2!=NULL)
-					if(strlen(result2)>8)
+					if(strnlen(result2,10)>8)
 					{
 						fprintf(stdout,"\n-------------------\n %sTitle:%s  %s  \n %sDescription:%s %s \n %sRelevance:%s %s \n %sReference:%s %s \n %sMatch:%s %s  \n%s%s%s\n",YELLOW,LAST,title,YELLOW,LAST,description,YELLOW,LAST,relevance,YELLOW,LAST,reference,YELLOW,LAST,match,CYAN,result2,LAST);
 
@@ -183,7 +184,7 @@ void fly_to_analyse(char *path, char *config)
 		 
 						}
 					}
-					xfree((void **)&result2);
+					XFREE(result2);
 				break;
 
 
@@ -196,7 +197,7 @@ void fly_to_analyse(char *path, char *config)
 	}
 	
 	if(strlen(last)>16)
-		xfree((void **)&last);
+		XFREE(last);
 }
 
 
@@ -230,7 +231,7 @@ void mosca_start (const char * dir_name, char * extension, char * config)
 		d_name = entry->d_name;
 
 // TODO* i need improve that extension check
-		if(strcmp(d_name,".") && strcmp(d_name,"..") && match_test(d_name,extension))
+		if(d_name[0]!='.' && strncmp(d_name,"..",2)>0 && match_test(d_name,extension))
 		{
 			snprintf(tmp_path,511,"%s/%s",dir_name,d_name);
 			printf("\n=====================================\n%s Path:%s %s \n %sUse Module:%s %s\n",YELLOW,LAST,tmp_path,YELLOW,LAST,config);
@@ -243,12 +244,14 @@ void mosca_start (const char * dir_name, char * extension, char * config)
 		{
 
             
-	            if (strcmp (d_name, "..") != 0 && strcmp (d_name, ".") != 0) 
+	            if (strncmp(d_name, "..",2)>0 && d_name[0]!='.') 
 		    {
 	  		int path_length;
 			char path[1024];
  
-			path_length = snprintf (path, 1023, "%s/%s", dir_name, d_name);
+			memset(path,0,1023);
+
+			path_length = snprintf(path, 1023, "%s/%s", dir_name, d_name);
 
 
      	                if (path_length >= 1023) 

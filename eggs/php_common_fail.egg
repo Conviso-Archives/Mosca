@@ -5,49 +5,49 @@
  ::Description::( File Manipulation. this is notification ):: 
  ::Relevance::( Low ):: 
  ::Reference::( search race conditions, file manipulation etc... ):: 
- ::Match::# fopen|fclose|readline|fwrite|mkdir|unlink|file_get_contents #:: 
+ ::Match::#fopen|fclose|readline|fwrite|mkdir|unlink|file_get_contents#:: 
 
  ::Title::( Possible Command injection ):: 	
  ::Description::( Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application. ):: 
  ::Relevance::( High ):: 
  ::Reference::( https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 ):: 
- ::Match::# shell|eval|system|execve|exec|popen|proc_open|proc_get_status|proc_nice|passthru|assert|create_function #:: 
+ ::Match::#shell|eval|system|execve|exec|popen|proc_open|proc_get_status|proc_nice|passthru|assert|create_function|assert|extract|preg_replace|ReflectionFunction#:: 
 
  ::Title::( Possible XSS )::	
  ::Description::( notification at possible XSS )::
  ::Relevance::( High ):: 
  ::Reference::( http://guides.rubyonrails.org/security.html#cross-site-scripting-xss )::
- ::Match::# (echo|print|print_r|exit|die|printf|vprintf).*?\s*\$_((POST|GET)\[.*?\]|SERVER\[.?(REQUEST_URI|QUERY_STRING)) #::
+ ::Match::#(echo|print|print_r|exit|die|printf|vprintf).*?\s*\$_((POST|GET)\[.*?\]|SERVER\[.?(REQUEST_URI|QUERY_STRING))#::
 
  ::Title::( SHow inputs like get/post/cookies etc... )::	
  ::Description::( notification )::
  ::Relevance::( Low ):: 
  ::Reference::( search SQLi etc... )::
- ::Match::# _GET|_POST|_REQUEST|_SESSION|_COOKIE|_FILES|_SERVER #::
+ ::Match::#JREQUEST_ALLOWHTML|JREQUEST_ALLOWRAW|_GET|_POST|_REQUEST|_SESSION|_COOKIE|_FILES|_SERVER#::
 
  ::Title::( Possible SQL injection )::	
  ::Description::( notification possible SQL injection )::
  ::Relevance::( High ):: 
  ::Reference::( https://www.owasp.org/index.php/Testing_for_Stack_Overflow )::
- ::Match::# mysql_query|pg_query|pg_send_query|pg_execute|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|mysql_query|mysqli_query|pg_execute|pg_insert|pg_query|pg_select|pg_update|sqlite_query|msql_query|mssql_query|odbc_exec|fbsql_query|sybase_query|ibase_query|dbx_query|ingres_query|ifx_query|oci_parse|sqlsrv_query|maxdb_query|db2_exec #::
+ ::Match::#db_query|wpdb->insert|wpdb->update|wpdb->delete|mysql_query|pg_query|pg_send_query|pg_execute|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|mysql_query|mysqli_query|pg_execute|pg_insert|pg_query|pg_select|pg_update|sqlite_query|msql_query|mssql_query|odbc_exec|fbsql_query|sybase_query|ibase_query|dbx_query|ingres_query|ifx_query|oci_parse|sqlsrv_query|maxdb_query|db2_exec#::
 
  ::Title::( Object injection )::	
  ::Description::( Do not use unserialize function with user-supplied input. Unserialization can result in code being loaded and executed due to object instantiation and autoloading. )::
  ::Relevance::( High ):: 
  ::Reference::( https://www.owasp.org/index.php/PHP_Object_Injection )::
- ::Match::# unserialize\s?\( #::
+ ::Match::#unserialize\s?\(#::
  
  ::Title::( Autoload Injection ):: 	
  ::Description::( Autoload can lead to a Local and Remote file injection in PHP5 OOP ):: 
  ::Relevance::( Medium ):: 
  ::Reference::( http://php.net/language.oop5.autoload  ):: 
- ::Match::# spl_autoload_call|class_exists|interface_exists|method_exists|property_exists|is_subclass_of|__autoload|__wakeup|__destruct #::
+ ::Match::#spl_autoload_call|class_exists|interface_exists|method_exists|property_exists|is_subclass_of|__autoload|__wakeup|__destruct #::
  
  ::Title::( Header injection )::	
  ::Description::( HTTP_HOST is remotely set via Host Header and poor usage often leads to injection or redirection attacks. )::
  ::Relevance::( High ):: 
  ::Reference::( https://en.wikipedia.org/wiki/HTTP_header_injection )::
- ::Match::# _SERVER\[\s*('|")HTTP_HOST('|")\s*\]|header\s?(\(|'|\"|$).*\$.* #::
+ ::Match::#_SERVER\[\s*('|")HTTP_HOST('|")\s*\]|header\s?(\(|'|\"|$).*\$.*#::
  
  ::Title::( Logic fail )::	
  ::Description::(Possible logic bug that could lead to security bugs. Assigning a static string to a variable in an if condition is not normal and is likely a mistake. )::
@@ -59,5 +59,5 @@
  ::Description::( wordpress functions that need sanitize )::
  ::Relevance::( Low ):: 
  ::Reference::( https://developer.wordpress.org/reference/)::
- ::Match::# the_title|get_the_title|the_content #::
+ ::Match::#the_title|get_the_title|the_content|wp_titlewp_list_comments|comments_template|previous_post_link|get_the_title|the_title|comment_text|get_the_excerpt|next_post_link#::
  

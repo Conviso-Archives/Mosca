@@ -143,13 +143,26 @@ int main(int argc, char ** argv)
 
   		}
 
+
+		if(pack[0]==NULL)
+		{
+			DEBUG("error at egg file");
+			exit(0);
+		}
+
+
+		if(pack[1]==NULL)
+		{
+			DEBUG("error at path file");
+			exit(0);
+		}
+
+
 		if(pack[3]==NULL)
 		{
 			DEBUG("error at log file");
 			exit(0);
 		}
-
-
 
 		if(pack[2]==NULL)
 		{
