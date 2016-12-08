@@ -10,7 +10,7 @@ char *ReadLines(char * NameFile)
 	FILE * fh;
 	static char buffer[MAX_file_len];
 
-	memset(buffer,0,MAX_file_len-1);
+	burn_mem(buffer,0,MAX_file_len-1);
 
 	fh = fopen(NameFile, "rb");
 
@@ -114,7 +114,7 @@ void fly_to_analyse(char *path, char *config)
 		{
 			case TITLE:
 					sz = p - last;
-					memset(title,0,127);
+					burn_mem(title,0,127);
 					snprintf(title,127,"%.*s", sz, last);
 					strcpy(title,ClearStr(title,10));
 				break;
@@ -122,7 +122,7 @@ void fly_to_analyse(char *path, char *config)
 			case DESCRIPTION:
 				
  					sz = p - last;
-					memset(description,0,511);
+					burn_mem(description,0,511);
 					snprintf(description,511,"%.*s", sz, last);
 					strcpy(description,ClearStr(description,16));
 				break;
@@ -130,7 +130,7 @@ void fly_to_analyse(char *path, char *config)
 			case REFERENCE:
 
 					sz = p - last - 1;
-					memset(reference,0,511);
+					burn_mem(reference,0,511);
 					snprintf(reference,511,"%.*s", sz, last);
 					strcpy(reference,ClearStr(reference,14));
 				break;
@@ -139,14 +139,14 @@ void fly_to_analyse(char *path, char *config)
 			case RELEVANCE:
 
 					sz = p - last;
-					memset(relevance,0,511);
+					burn_mem(relevance,0,511);
 					snprintf(relevance,511,"%.*s", sz, last);
 					strcpy(relevance,ClearStr(relevance,14));
 				break;
 
 			case MATCH:
 					sz = p - last;
-					memset(match,0,1023);
+					burn_mem(match,0,1023);
 					snprintf(match,1023,"%.*s", sz, last);
 					strcpy(match,ClearStr(match,10));
 
@@ -236,7 +236,7 @@ void mosca_start (const char * dir_name, char * extension, char * config)
 			snprintf(tmp_path,511,"%s/%s",dir_name,d_name);
 			printf("\n=====================================\n%s Path:%s %s \n %sUse Module:%s %s\n",YELLOW,LAST,tmp_path,YELLOW,LAST,config);
 			fly_to_analyse(tmp_path, config);
-			memset(tmp_path,0,511);
+			burn_mem(tmp_path,0,511);
 		}
 
 
@@ -249,7 +249,7 @@ void mosca_start (const char * dir_name, char * extension, char * config)
 	  		int path_length;
 			char path[1024];
  
-			memset(path,0,1023);
+			burn_mem(path,0,1023);
 
 			path_length = snprintf(path, 1023, "%s/%s", dir_name, d_name);
 

@@ -100,6 +100,13 @@ void xfree(void **ptr)
 	
 }
 
+volatile void *burn_mem(volatile void *dst, int c, size_t len) 
+{
+	volatile char *buf;
+   
+	for(buf = (volatile char *)dst;  len;  buf[--len] = c);
 
+	return dst;
+}
 
 

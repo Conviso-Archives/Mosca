@@ -5,35 +5,35 @@
  ::Description::( File Manipulation. this is notification ):: 
  ::Relevance::( Low ):: 
  ::Reference::( search race conditions, file manipulation etc... ):: 
- ::Match::# OpenTextFile|WriteLine|GetFileName|CreateTextFile #:: 
+ ::Match::#OpenTextFile|WriteLine|GetFileName|CreateTextFile#:: 
 
  ::Title::( Possible Command injection ):: 	
  ::Description::( Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application. ):: 
  ::Relevance::( High ):: 
  ::Reference::( https://www.owasp.org/index.php/Command_Injection ):: 
- ::Match::# WScript\.Shell|\.Exec|\.run " #:: 
+ ::Match::#WScript\.Shell|\.Exec|\.run#:: 
 
  ::Title::( Possible XSS )::	
  ::Description::( notification at possible XSS )::
  ::Relevance::( High ):: 
  ::Reference::( https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29 )::
- ::Match::# (response\.write ) #::
+ ::Match::#response\.write#::
 
  ::Title::( SHow inputs like get/post/cookies etc... )::	
  ::Description::( notification input here )::
  ::Relevance::( Low ):: 
  ::Reference::( search SQLi,XSS etc... )::
- ::Match::# request\.querystring|request\.form|Response\.Cookies|Request\.Cookies|Session #::
+ ::Match::#request\.querystring|request\.form|Response\.Cookies|Request\.Cookies|Session#::
 
  ::Title::( Possible SQL injection )::	
  ::Description::( notification possible SQL injection )::
  ::Relevance::( High ):: 
  ::Reference::( https://www.owasp.org/index.php/SQL_Injection )::
- ::Match::# ADODB\.recordset|ADODB\.Connection|ADODB\.command|WHERE|FROM|SELECT|UPDATE|UNION|DELETE|INSERT #::
+ ::Match::#ADODB\.recordset|ADODB\.Connection|ADODB\.command|WHERE|FROM|SELECT|UPDATE|UNION|DELETE|INSERT#::
 
  ::Title::( Logic fail )::	
  ::Description::(Possible logic bug that could lead to security bugs. Assigning a static string to a variable in an if condition is not normal and is likely a mistake. )::
  ::Relevance::( High ):: 
  ::Reference::( https://en.wikipedia.org/wiki/Logic_error)::
- ::Match::# if\s?\(\s?\$.*\s?(?<!\!)=\s?('|").*('|")\s?\) #::
+ ::Match::#if\s?\(\s?\$.*\s?(?<!\!)=\s?('|").*('|")\s?\)#::
  

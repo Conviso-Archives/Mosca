@@ -25,7 +25,7 @@ void init_banner_mosca()
 "       .'(_I_)`.   |  | |__| ___] |___ |  |   coded by Cooler_\n"
 "           \"       \n"
  YELLOW
-"    Static analysis tool to find bugs like a grep unix command  v0.05 \n"
+"    Tool to find bugs like a grep unix command  v0.07 \n"
  LAST
 "+-----------------------------------------------------------------+\n"
 "Options: \n"
@@ -170,7 +170,7 @@ int main(int argc, char ** argv)
 			exit(0);
 		}
 		
-		memset(log_file,0,255);	
+		burn_mem(log_file,0,255);	
 		strncpy(log_file,pack[3],255);
 
 		mosca_start(pack[1],pack[2],pack[0]);

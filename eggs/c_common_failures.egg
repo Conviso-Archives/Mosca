@@ -30,3 +30,9 @@
  ::Relevance::( High ):: 
  ::Reference::( https://www.owasp.org/index.php/Testing_for_Stack_Overflow )::
  ::Match::#strcpy|strcat|strdup|sprintf|snprintf|strncat|strncpy|read|alloca#::
+
+ ::Title::( Heap functions )::	
+ ::Description::( interesting functions using heap )::
+ ::Relevance::( High ):: 
+ ::Reference::( http://phrack.org/issues/66/10.html )::
+ ::Match::#strcpy|strcat|strdup|sprintf|snprintf|strncat|strncpy|read|malloc|free|xfree|xmalloc|calloc|realloc|sbrk|brk#::

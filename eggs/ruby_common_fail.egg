@@ -5,35 +5,35 @@
  ::Description::( File Manipulation. this is notification ):: 
  ::Relevance::( Low ):: 
  ::Reference::( search race conditions, file manipulation etc... ):: 
- ::Match::# open|close|File|readline|write|mkdir|Dir #:: 
+ ::Match::#open|close|File|readline|write|mkdir|Dir#:: 
 
  ::Title::( Possible Command injection ):: 	
  ::Description::( Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application. ):: 
  ::Relevance::( High ):: 
  ::Reference::( https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 ):: 
- ::Match::# _send_|__send__|system|send|public_send|eval|exec|syscall|__send__\s?\(?|send\s?\(|public_send\s?\( #:: 
+ ::Match::#_send_|__send__|system|send|public_send|eval|exec|syscall|__send__\s?\(?|send\s?\(|public_send\s?\(#:: 
 
  ::Title::( Possible XSS )::	
  ::Description::( notification at possible XSS )::
  ::Relevance::( High ):: 
  ::Reference::( http://guides.rubyonrails.org/security.html#cross-site-scripting-xss )::
- ::Match::# raw|html_safe|^==|^!= #::
+ ::Match::#raw|html_safe|^==|^!=#::
 
  ::Title::( SHow inputs like get/post etc... )::	
  ::Description::( notification )::
  ::Relevance::( Low ):: 
  ::Reference::( http://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html )::
- ::Match::# params #::
+ ::Match::#params#::
 
  ::Title::( Possible SQL injection )::	
  ::Description::( notification possible SQL injection )::
  ::Relevance::( High ):: 
  ::Reference::( https://www.owasp.org/index.php/SQL_Injection )::
- ::Match::# \.where|\.having|\.select|\.group|\.order|\.limit|\.offset|\.joins|\.includes|\.lock|\.readonly|\.from #::
+ ::Match::#\.where|\.having|\.select|\.group|\.order|\.limit|\.offset|\.joins|\.includes|\.lock|\.readonly|\.from#::
 
  ::Title::( Object injetion with constantize function )::	
  ::Description::( Every time you use a pattern like the ones above think twice to see if you’re not exposing too much.  )::
  ::Relevance::( High ):: 
  ::Reference::( http://guides.rubyonrails.org/security.html )::
- ::Match::# params(.*)\.constantize #::
+ ::Match::#params(.*)\.constantize#::
  
