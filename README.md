@@ -1,7 +1,7 @@
 ##Mosca
 =====
 
- Static search tool to find bugs like a grep unix command, Version 0.03  
+Tool to find bugs like a grep unix command, Version 0.03  
 
 
 
