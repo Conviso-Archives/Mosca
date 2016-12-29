@@ -24,10 +24,3 @@
  ::Relevance::( Low ):: 
  ::Reference::( https://www.owasp.org/index.php/Preventing_SQL_Injection_in_Java )::
  ::Match::#WHERE|INSERT|SELECT|DELETE|UPDATE|ORDER|createStatement|executeQuery#::
- 
- ::Title::( Logic fail )::	
- ::Description::(Possible logic bug that could lead to security bugs. Assigning a static string to a variable in an if condition is not normal and is likely a mistake. )::
- ::Relevance::( High ):: 
- ::Reference::( https://en.wikipedia.org/wiki/Logic_error)::
- ::Match::#if\s?\(\s?\$.*\s?(?<!\!)=\s?('|").*('|")\s?\)#::
- 
